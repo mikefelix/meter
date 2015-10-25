@@ -110,30 +110,7 @@ public class MeterWallpaper extends WallpaperService {
         public void onVisibilityChanged(boolean visible) {
             mVisible = visible;
             if (visible) {
-
-                ArrayList<Class> drawerClasses = new ArrayList<Class>();
-
-                //always include wifi + battery
-                drawerClasses.add(CombinedWifiCellularDrawer.class);
-                drawerClasses.add(BatteryDrawer.class);
-                //only include notifications if it has permission
-                if(NotificationService.permissionsGranted){
-                    drawerClasses.add(NotificationsDrawer.class);
-                }
-
-                mDrawerIndex++;
-                if( mDrawerIndex >= drawerClasses.size() ){
-                    mDrawerIndex = 0;
-                }
-                Class cls = drawerClasses.get(mDrawerIndex);
-                if(cls == NotificationsDrawer.class) {
-                    mDrawer = new NotificationsDrawer(mContext);
-                } else if(cls == BatteryDrawer.class) {
-                    mDrawer = new BatteryDrawer(mContext);
-                } else {
-                    mDrawer = new CombinedWifiCellularDrawer(mContext);
-                }
-
+                mDrawer = new BatteryDrawer(mContext);
                 mDrawer.start();
                 // Start the drawing loop
                 draw();
